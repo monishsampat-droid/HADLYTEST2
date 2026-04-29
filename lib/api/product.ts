@@ -1,3 +1,7 @@
+const BASE_URL =
+  typeof window === "undefined"
+    ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
+    : ""
 
 type FetchProductsParams = {
   categoryId?: string;
@@ -83,7 +87,7 @@ export async function fetchProducts(
   }
 
   const query = params.toString();
-  const url = `/api/products${query ? `?${query}` : ""}`;
+  const url = `${BASE_URL}/api/products${query ? `?${query}` : ""}`;
   const data = await apiFetch(url);
 
   return (data as ApiProduct[]).map((product) => {
@@ -130,12 +134,12 @@ export async function fetchProducts(
 
 // ✅ GET PRODUCT BY SLUG
 export function fetchProductBySlug(slug: string) {
-  return apiFetch(`/api/products/${slug}`);
+  return apiFetch(`${BASE_URL}/api/products/${slug}`);
 }
 
 // 🔐 ADMIN: CREATE PRODUCT
 export function createProduct(data: any) {
-  return apiFetch(`/api/products`, {
+  return apiFetch(`${BASE_URL}/api/products`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -146,7 +150,7 @@ export function createProduct(data: any) {
 
 // 🔐 ADMIN: UPDATE PRODUCT
 export function updateProduct(id: string, data: any) {
-  return apiFetch(`/api/products/${id}`, {
+  return apiFetch(`${BASE_URL}/api/products/${id}`, {
     method: "PATCH",
     body: JSON.stringify(data),
     headers: {
@@ -157,7 +161,7 @@ export function updateProduct(id: string, data: any) {
 
 // 🔐 ADMIN: DELETE PRODUCT
 export function deleteProduct(id: string) {
-  return apiFetch(`/api/products/${id}`, {
+  return apiFetch(`${BASE_URL}/api/products/${id}`, {
     method: "DELETE",
   });
 }
