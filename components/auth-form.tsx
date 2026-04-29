@@ -10,8 +10,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClient } from "@/lib/supabase/client"
 
-const supabase = createClient()
-
+// ✅ Schemas (OUTSIDE component)
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
@@ -27,11 +26,9 @@ type LoginFormValues = z.infer<typeof loginSchema>
 type SignupFormValues = z.infer<typeof signupSchema>
 type AuthFormValues = LoginFormValues | SignupFormValues
 
-export function AuthForm({
-  type,
-}: {
-  type: "login" | "signup"
-}) {
+// ✅ Component
+export function AuthForm({ type }: { type: "login" | "signup" }) {
+  const supabase = createClient()
   const [showPassword, setShowPassword] = useState(false)
 
   const {
@@ -76,6 +73,7 @@ export function AuthForm({
     }
   }
 
+  
   return (
     <div className="w-full max-w-md mx-auto bg-card text-card-foreground border border-border rounded-3xl p-6 md:p-8 shadow-xl backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="flex justify-center mb-6">
