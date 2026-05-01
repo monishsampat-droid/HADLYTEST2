@@ -57,6 +57,7 @@ export function Footer() {
             <p className="text-sm font-semibold mb-4">Company</p>
             <ul className="space-y-2 text-xs text-white/60">
               <li><Link href="/" className="hover:text-white">Home</Link></li>
+              <li><Link href="/products?cat=all" className="hover:text-white">Products</Link></li>
               <li><Link href="/about" className="hover:text-white">About</Link></li>
               <li><Link href="/blogs" className="hover:text-white">Blogs</Link></li>
               <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
