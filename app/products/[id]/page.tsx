@@ -390,10 +390,10 @@ export default function ProductPage({ params }: Props) {
       <button
         key={`${img}-${index}`}
         onClick={() => setActiveImg(index)}
-        className={`w-16 h-16 rounded-xl border-2 flex-shrink-0 overflow-hidden ${
-          activeImg === index
-            ? "border-[#1a3a2a]"
-            : "border-gray-200 opacity-70 hover:opacity-100"
+        className={`w-14 h-14 rounded-xl overflow-hidden border-2 transition ${
+        activeImg === index
+          ? "border-[#1a3a2a] shadow-sm"
+          : "border-gray-200 hover:border-[#1a3a2a]"
         }`}
       >
         <img
