@@ -55,13 +55,13 @@ export function ProductCard({ product }: { product: Product }) {
       </button>
 
       {/* 🖼 Cover Image */}
-      <div className="relative aspect-square overflow-hidden rounded-xl bg-muted">
+      <div className="relative aspect-square overflow-hidden rounded-xl bg-white flex items-center justify-center">
         <Image
           src={product.image}
           alt={product.name}
           fill
           sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
         />
       </div>
 

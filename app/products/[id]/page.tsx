@@ -427,7 +427,7 @@ export default function ProductPage({ params }: Props) {
                           : "border-gray-200 text-gray-600 hover:border-[#1a3a2a] bg-white"
                       }`}
                     >
-                      {variant.unit}
+                      {variant.weight} {variant.unit}
                     </button>
                   ))}
                 </div>
