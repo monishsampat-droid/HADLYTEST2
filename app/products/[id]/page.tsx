@@ -336,61 +336,75 @@ export default function ProductPage({ params }: Props) {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 bg-white rounded-3xl overflow-hidden shadow-sm">
-          <div className="flex gap-3 p-5">
-            <div className="flex flex-col gap-2">
-              {images.map((img, index) => (
-                <button
-                  key={`${img}-${index}`}
-                  onClick={() => setActiveImg(index)}
-                  className={`w-14 h-14 rounded-xl overflow-hidden border-2 transition ${
-                    activeImg === index ? "border-[#1a3a2a] shadow-sm" : "border-gray-100 opacity-60 hover:opacity-100"
-                  }`}
-                >
-                  <img src={img} alt={product.name} className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
+          <div className="p-5 w-full">
+  {/* MAIN IMAGE */}
+  <div className="relative w-full h-[420px] md:h-[520px] bg-white rounded-2xl flex items-center justify-center overflow-hidden">
+    <img
+      src={images[activeImg]}
+      alt={product.name}
+      className="max-h-full max-w-full object-contain"
+    />
 
-            <div className="relative flex-1 rounded-2xl overflow-hidden bg-gray-50">
-              <img src={images[activeImg]} alt={product.name} className="w-full h-72 md:h-[420px] object-cover" />
-              <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-                {product.type === "VARIABLE" && (
-                  <span className="bg-amber-400 text-amber-900 text-xs font-bold px-2.5 py-0.5 rounded-full">
-                    Variable weight
-                  </span>
-                )}
-              </div>
-              <button
-                onClick={() => setWishlisted((value) => !value)}
-                className="absolute top-3 right-3 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition"
-              >
-                <Heart className={`w-4 h-4 ${wishlisted ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
-              </button>
-              <button
-                onClick={() => setActiveImg((prev) => (prev - 1 + images.length) % images.length)}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-1.5 shadow hover:bg-white transition"
-              >
-                <ChevronLeft className="w-4 h-4 text-gray-700" />
-              </button>
-              <button
-                onClick={() => setActiveImg((prev) => (prev + 1) % images.length)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-1.5 shadow hover:bg-white transition"
-              >
-                <ChevronRight className="w-4 h-4 text-gray-700" />
-              </button>
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                {images.map((_, index) => (
-                  <button
-                    key={`dot-${index}`}
-                    onClick={() => setActiveImg(index)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      index === activeImg ? "w-5 bg-[#1a3a2a]" : "w-1.5 bg-gray-300"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
+    {/* TAG */}
+    {product.type === "VARIABLE" && (
+      <span className="absolute top-3 left-3 bg-amber-400 text-amber-900 text-xs font-bold px-2.5 py-0.5 rounded-full">
+        Variable weight
+      </span>
+    )}
+
+    {/* ❤️ Wishlist */}
+    <button
+      onClick={() => setWishlisted((v) => !v)}
+      className="absolute top-3 right-3 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition"
+    >
+      <Heart
+        className={`w-4 h-4 ${
+          wishlisted ? "fill-red-500 text-red-500" : "text-gray-400"
+        }`}
+      />
+    </button>
+
+    {/* ⬅️➡️ Navigation */}
+    <button
+      onClick={() =>
+        setActiveImg((prev) => (prev - 1 + images.length) % images.length)
+      }
+      className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full p-2 shadow"
+    >
+      <ChevronLeft className="w-4 h-4" />
+    </button>
+
+    <button
+      onClick={() =>
+        setActiveImg((prev) => (prev + 1) % images.length)
+      }
+      className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full p-2 shadow"
+    >
+      <ChevronRight className="w-4 h-4" />
+    </button>
+  </div>
+
+  {/* 🔽 THUMBNAILS BELOW */}
+  <div className="flex gap-3 mt-4 overflow-x-auto">
+    {images.map((img, index) => (
+      <button
+        key={`${img}-${index}`}
+        onClick={() => setActiveImg(index)}
+        className={`w-16 h-16 rounded-xl border-2 flex-shrink-0 overflow-hidden ${
+          activeImg === index
+            ? "border-[#1a3a2a]"
+            : "border-gray-200 opacity-70 hover:opacity-100"
+        }`}
+      >
+        <img
+          src={img}
+          alt={product.name}
+          className="w-full h-full object-contain bg-white"
+        />
+      </button>
+    ))}
+  </div>
+</div>
 
           <div className="p-5 md:p-7 flex flex-col">
             <div className="flex-1">

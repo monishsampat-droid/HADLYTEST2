@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react"
 
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1600&h=900&fit=crop&q=90",
+    image: "/categoryimages/fertilizers.png",
     tag: "ORGANIC FERTILIZERS",
     title: "Restore\nLiving Soil.",
     subtitle: "100% chemical-free · Vermicompost · Neem Cake · Seaweed",
@@ -14,12 +14,20 @@ const slides = [
     stat: { value: "10,000+", label: "growers trust us" },
   },
   {
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&h=900&fit=crop&q=90",
+    image: "/categoryimages/seeds.png",
     tag: "PREMIUM SEEDS",
     title: "Sow With\nConfidence.",
-    subtitle: "High germination · Heirloom & hybrid",
+    subtitle: "High germination · Heirloom & hybrid · Grown for Indian gardens",
     cta: { label: "Shop Seeds", link: "/products?cat=seeds" },
     stat: { value: "95%+", label: "germination rate" },
+  },
+  {
+    image: "/categoryimages/tools.png",
+    tag: "Garden Tools",
+    title: "Built for\nReal Growers.",
+    subtitle: "Ergonomic desing · Durable build · For every gardener",
+    cta: { label: "Shop Tools", link: "/products?cat=tools&sub=All" },
+    stat: { value: "100%", label: "chemical-free" },
   },
 ]
 
@@ -56,7 +64,7 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative h-[480px] md:h-[600px] overflow-hidden bg-[#0a1f12]"
+      className="relative h-[70vh] min-h-[420px] max-h-[720px] overflow-hidden bg-[#0a1f12]"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
