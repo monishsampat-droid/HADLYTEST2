@@ -19,7 +19,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com", // 👈 ADD THIS
+      },
     ],
   },
 };
+
 export default nextConfig;
