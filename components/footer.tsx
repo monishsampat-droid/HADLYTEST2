@@ -9,10 +9,10 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
 
         {/* GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
 
           {/* BRAND */}
-          <div className="space-y-4 flex flex-col items-center text-center">
+          <div className="col-span-2 md:col-span-1 space-y-4 flex flex-col items-center text-center">
             <div className="flex justify-center w-full">
               <Image
                 src="/logo_transparent.png"
