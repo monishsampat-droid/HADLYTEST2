@@ -6,7 +6,8 @@ const categories = [
   { name: "Protection", image: "/icons/protection.png", link: "/products?cat=fertilizers&sub=Plant+Protection" },
   { name: "Veggie Seeds", image: "/icons/veggie-seeds.png", link: "/products?cat=seeds&sub=Vegetable" },
   { name: "Herb Seeds", image: "/icons/herb-seeds.png", link: "/products?cat=seeds&sub=Leafy+%26+Herbs" },
-  { name: "Flowers", image: "/icons/flowers.png", link: "/products?cat=seeds&sub=Flowers" },
+  { name: "Flower Seeds", image: "/icons/flowers.png", link: "/products?cat=seeds&sub=Flowers" },
+  { name: "Fruit Seeds", image: "/icons/fruits.png", link: "/products?cat=seeds&sub=Fruits" },
   { name: "Tools", image: "/icons/tools.png", link: "/products?cat=tools" },
   { name: "Watering", image: "/icons/watering.png", link: "/products?cat=tools&sub=Watering" },
 ]
@@ -27,7 +28,7 @@ export function CategoryGrid() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-6">
+        <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-6 justify-items-center">
           {categories.map((cat, i) => (
             <Link
               key={i}
@@ -36,7 +37,7 @@ export function CategoryGrid() {
             >
               {/* Icon box */}
               <div className="
-                w-28 h-28 md:w-32 md:h-32
+                w-32 h-32 md:w-36 md:h-36
                 rounded-2xl 
                 bg-white 
                 flex items-center justify-center 
@@ -49,7 +50,7 @@ export function CategoryGrid() {
                   alt={cat.name}
                   width={160}
                   height={160}
-                  className="object-contain w-20 h-20 md:w-24 md:h-24 group-hover:scale-110 transition duration-300"
+                  className="object-contain w-24 h-24 md:w-28 md:h-28 group-hover:scale-110 transition duration-300"
                 />
               </div>
 

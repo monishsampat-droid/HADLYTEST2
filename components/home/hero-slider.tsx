@@ -27,7 +27,7 @@ const slides = [
     title: "Built for\nReal Growers.",
     subtitle: "Ergonomic desing · Durable build · For every gardener",
     cta: { label: "Shop Tools", link: "/products?cat=tools&sub=All" },
-    stat: { value: "100%", label: "chemical-free" },
+    stat: { value: "100%", label: "Durable" },
   },
 ]
 

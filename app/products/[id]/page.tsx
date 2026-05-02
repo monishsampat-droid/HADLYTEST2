@@ -441,7 +441,9 @@ export default function ProductPage({ params }: Props) {
                           : "border-gray-200 text-gray-600 hover:border-[#1a3a2a] bg-white"
                       }`}
                     >
-                      {variant.weight} {variant.unit}
+                      {product.type === "VARIABLE"
+                      ? `${variant.weight} ${variant.unit}`
+                      : variant.unit}
                     </button>
                   ))}
                 </div>
@@ -528,12 +530,7 @@ export default function ProductPage({ params }: Props) {
                   </>
                 )}
               </button>
-              <button
-                onClick={addToCart}
-                className="flex-1 bg-[#1a3a2a] text-white rounded-2xl py-3.5 text-sm font-bold hover:bg-[#2d5a3d] transition shadow-md hover:shadow-lg flex items-center justify-center gap-2"
-              >
-                Buy Now <ArrowRight className="w-4 h-4" />
-              </button>
+              
             </div>
 
             <div className="grid grid-cols-3 gap-2 bg-[#f8faf6] rounded-2xl p-4 border border-gray-100">

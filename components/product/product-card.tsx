@@ -66,93 +66,80 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
 
       {/* 📦 Content */}
-      <div className="mt-3 flex flex-col flex-1 gap-2">
-        
-        {/* 🏷 Product Name */}
-        <h3 className="text-sm font-medium text-foreground line-clamp-2 leading-snug min-h-[42px]">
-          {product.name}
-        </h3>
+      {/* 📦 Content */}
+<div className="mt-2 flex flex-col flex-1 gap-1">
 
-        {/* 💰 Price */}
-        <p className="text-base font-semibold text-primary">
-          ₹{price}
-        </p>
+  {/* 🏷 Product Name */}
+  <h3 className="text-sm font-medium text-foreground line-clamp-2 leading-tight min-h-[36px]">
+    {product.name}
+  </h3>
 
-        {/* 🔄 Variants */}
-        {product.variants && (
-          <div className="flex gap-2 flex-wrap">
-            {product.variants.map((variant, index) => (
-              <button
-                key={index}
-                onClick={(e) => {
-  e.preventDefault()
-  e.stopPropagation()
-  setSelectedVariant(variant)
-}}
-                className={`px-2 py-1 text-xs rounded-lg border transition
-                  ${
-                    selectedVariant?.label === variant.label
-                      ? "border-primary text-primary bg-primary/10"
-                      : "border-border text-muted-foreground hover:border-primary"
-                  }`}
-              >
-                {variant.label}
-              </button>
-            ))}
-          </div>
-        )}
+  {/* 💰 Price + Variants */}
+  <div className="flex flex-col gap-0.5">
+    <p className="text-base font-semibold text-primary">
+      ₹{price}
+    </p>
 
-        {/* 🛒 Actions */}
-        <div className="mt-auto flex gap-2">
-          {/* Add to Cart */}
+    {product.variants && (
+      <div className="flex gap-2 flex-wrap mt-0.5">
+        {product.variants.map((variant, index) => (
           <button
-  onClick={async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    try {
-      const res = await fetch("/api/cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          productId: product.id,
-          variantId: null,
-          quantity: 1,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(data.message);
-
-      console.log("Added to cart:", data);
-    } catch (err: any) {
-      console.error(err.message);
-      alert("Failed to add to cart");
-    }
-  }}
-  className="flex-1 border border-border bg-background rounded-xl py-2 text-xs text-foreground
-  hover:border-primary hover:text-primary hover:bg-muted transition"
->
-  Add to Cart
-</button>
-
-          {/* Buy Now */}
-          <button
+            key={index}
             onClick={(e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    // buy now logic
-  }}
-            className="flex-1 bg-primary text-primary-foreground rounded-xl py-2 text-xs font-medium
-            hover:opacity-90 transition"
+              e.preventDefault()
+              e.stopPropagation()
+              setSelectedVariant(variant)
+            }}
+            className={`px-2 py-1 text-xs rounded-lg border transition ${
+              selectedVariant?.label === variant.label
+                ? "border-primary text-primary bg-primary/10"
+                : "border-border text-muted-foreground hover:border-primary"
+            }`}
           >
-            Buy Now
+            {variant.label}
           </button>
-        </div>
+        ))}
       </div>
+    )}
+  </div>
+
+  {/* 🛒 Add to Cart */}
+  <div className="mt-auto">
+    <button
+      onClick={async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        try {
+          const res = await fetch("/api/cart", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productId: product.id,
+              variantId: null,
+              quantity: 1,
+            }),
+          })
+
+          const data = await res.json()
+          if (!res.ok) throw new Error(data.message)
+
+          console.log("Added to cart:", data)
+        } catch (err: any) {
+          console.error(err.message)
+          alert("Failed to add to cart")
+        }
+      }}
+      className="w-full border border-primary text-primary bg-transparent rounded-xl py-2 text-xs font-medium
+      hover:bg-primary hover:text-white transition-all duration-200"
+    >
+      Add to Cart
+    </button>
+  </div>
+
+</div>
     </div>
     </Link>
   )
