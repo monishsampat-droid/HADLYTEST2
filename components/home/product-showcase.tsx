@@ -5,131 +5,94 @@ import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { ProductCard } from "../product/product-card"
 
-type Product = {
-  id: number
-  name: string
-  basePrice: number
-  image: string
-}
-
 export function ProductShowcase({
-  title = "Featured Products",
-  subtitle = "Handpicked for you",
-  products,
+  title = "Best Sellers",
+  subtitle = "Trusted by thousands of growers across India.",
+  products = [],
 }: {
   title?: string
   subtitle?: string
-  products: Product[]
+  products: any[] // Matches the Product type in your card
 }) {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
 
   const visibleCards = 4
+  const percentageWidth = 100 / visibleCards
+  const maxIndex = Math.max(0, products.length - visibleCards)
 
   const next = () => {
-    setIndex((prev) =>
-      prev >= products.length - visibleCards ? 0 : prev + 1
-    )
+    setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
   }
 
   const prev = () => {
-    setIndex((prev) =>
-      prev <= 0 ? products.length - visibleCards : prev - 1
-    )
+    setIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
   }
 
-  // Auto slide
   useEffect(() => {
     if (paused) return
-
-    const interval = setInterval(() => {
-      next()
-    }, 3000)
-
+    const interval = setInterval(next, 3000)
     return () => clearInterval(interval)
-  }, [paused])
+  }, [paused, maxIndex, index])
+
+  if (!products.length) return null
 
   return (
-    <section className="py-12 md:py-16 px-4 md:px-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-
-        {/* HEADER */}
-        <div>
-          <p className="text-xs font-semibold tracking-widest text-primary mb-2 uppercase">
-            Most loved
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
-            {title}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {subtitle}
-          </p>
+    <section className="py-12 md:py-16 px-4 md:px-6 overflow-hidden">
+      <div className="max-w-7xl mx-auto space-y-8">
+        
+        {/* Header with Navigation */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
+            <p className="text-[10px] font-bold tracking-[0.2em] text-primary mb-1 uppercase">
+              Most Loved
+            </p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
+              {title}
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1 max-w-lg">{subtitle}</p>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <button onClick={prev} className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-accent transition shadow-sm">
+              <ChevronLeft size={20} />
+            </button>
+            <button onClick={next} className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-accent transition shadow-sm">
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
 
-        {/* CAROUSEL */}
+        {/* Carousel Track */}
         <div
-          className="relative overflow-hidden"
+          className="relative"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-
-          {/* TRACK */}
           <motion.div
-            className="flex gap-4"
-            animate={{
-              x: `-${index * (100 / visibleCards)}%`,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 120,
-              damping: 20,
-            }}
+            className="flex gap-4 md:gap-5"
+            animate={{ x: `-${index * percentageWidth}%` }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 }}
           >
-            {products.map((p) => (
+            {products.map((product) => (
               <div
-                key={p.id}
-                className="
-                  flex-shrink-0
-                  w-full
-                  sm:w-1/2
-                  md:w-1/3
-                  lg:w-1/4
-                "
+                key={product.id}
+                className="flex-shrink-0 w-full sm:w-[calc(50%-8px)] md:w-[calc(33.33%-11px)] lg:w-[calc(25%-15px)] relative"
               >
-                <ProductCard product={p} />
+                <div className="relative h-full">
+                  {/* Your Specific Product Card UI */}
+                  <ProductCard product={product} />
+                  
+                  {/* Floating Badge (Matches image_96df3d.png styling) */}
+                  <div className="absolute top-6 left-6 pointer-events-none z-10">
+                    <span className="bg-[#fbbf24] text-amber-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">
+                      Best Seller
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
           </motion.div>
-
-          {/* LEFT BUTTON */}
-          <button
-            onClick={prev}
-            className="
-              absolute left-2 top-1/2 -translate-y-1/2 z-10
-              w-10 h-10 rounded-full
-              bg-background/80 backdrop-blur
-              border border-border
-              flex items-center justify-center
-              shadow hover:scale-105 transition
-            "
-          >
-            <ChevronLeft className="w-5 h-5 text-foreground" />
-          </button>
-
-          {/* RIGHT BUTTON */}
-          <button
-            onClick={next}
-            className="
-              absolute right-2 top-1/2 -translate-y-1/2 z-10
-              w-10 h-10 rounded-full
-              bg-background/80 backdrop-blur
-              border border-border
-              flex items-center justify-center
-              shadow hover:scale-105 transition
-            "
-          >
-            <ChevronRight className="w-5 h-5 text-foreground" />
-          </button>
         </div>
       </div>
     </section>
